@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- We define an id for each (bean below) class -->
+
+    <bean id="triangle"    class="helloSpring.Triangle">
+        <!-- We can preset a property for a class when it's instantiated
+             Setter injection - using the Triangle's setType in our case-->
+        <property name="type" value="Equilateral" />
+    </bean>
+
+    <bean id="hexagon" class="helloSpring.Hexagon">
+        <!-- Instead of using Setter injection we can use the Constructor
+             Constructor injection -->
+        <constructor-arg value="6 Sided" />
+        <!-- When there are multiple constructors taking different data types,
+             you need to specify what kind of value to pass (int in our case)
+             so it knows what constructor to use. -->
+        <constructor-arg type="int" value="10" />
+
+        <!-- Or specify the index of each argument
+        <constructor-arg index="0" value="6 Sided" />
+        <constructor-arg index="1" value="10" />
+        -->
+    </bean>
+
+    <!-- Object injection
+         As you may notice, instead of "value" in <property>
+         we are referring (ref) to a value below, within our beans -->
+    <bean id="circle" class="helloSpring.Circle">
+        <property name="positionA" ref="positionA" />
+        <property name="positionB" ref="positionB" />
+    </bean>
+
+    <!-- blueprint for positionA and positionB within Circle class -->
+    <bean id="positionA" class="helloSpring.Position"> 
+        <property name="x" value="2" />
+        <property name="y" value="4" />
+    </bean>
+    <bean id="positionB" class="helloSpring.Position">
+        <property name="x" value="4" />
+        <property name="y" value="8" />
+    </bean>
+
+</beans>
