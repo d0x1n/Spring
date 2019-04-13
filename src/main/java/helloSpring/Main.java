@@ -15,6 +15,7 @@ public class Main {
         //Beanfactory beans = new XmlBeanFactory(new FileSystemResource("spring.xml"));
 
         // Using ApplicationContext - Spring Context (instead of BeanFactory)
+        // Check spring.xml in resources for more details
         ApplicationContext beans = new ClassPathXmlApplicationContext("spring.xml");
 
         // We cast it into our object because what we get is an object
