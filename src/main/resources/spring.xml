@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
 
     <!-- We define an id for each (bean below) class -->
 
-    <bean id="triangle"    class="helloSpring.Triangle">
+    <bean id="triangle" class="helloSpring.Triangle">
         <!-- We can preset a property for a class when it's instantiated
              Setter injection - using the Triangle's setType in our case-->
         <property name="type" value="Equilateral" />
@@ -45,5 +48,53 @@
         <property name="x" value="4" />
         <property name="y" value="8" />
     </bean>
+
+    <bean id="positionC" class="helloSpring.Position">
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <!-- Inner Bean - Define inner beans
+        You can define beans within other beans so they are not external like above
+        basically isolate them -->
+    <bean id="circleInnerBean" class="helloSpring.Circle">
+        <property name="positionA">
+            <!-- You may notice we don't define an ID here - because we don't use them anywhere else -->
+            <bean class="helloSpring.Position">
+                <property name="x" value="2" />
+                <property name="y" value="4" />
+            </bean>
+        </property>
+        <property name="positionB">
+            <bean class="helloSpring.Position">
+                <property name="x" value="4" />
+                <property name="y" value="8" />
+            </bean>
+        </property>
+    </bean>
+
+    <!-- Aliases - basically give another name -->
+    <alias name="circle" alias="circle-alias"/>
+    <!-- You can do that when defining the bean, but good practice is to use the ID as reference
+    as you can have XML validation
+        <bean id="circleTwo" class="helloSpring.Circle" name="anotherCircleName"></bean>
+     -->
+
+    <!-- idref
+    if you want to restrain (ref) to only id types, you use (idref) -->
+    <bean id="circleIdRef" class="helloSpring.Circle">
+        <property name="positionA">
+            <ref bean="positionD"/>
+        </property>
+
+    </bean>
+
+    <bean id="positionD" class="helloSpring.Position">
+        <property name="x" value="1"/>
+        <property name="y" value="2"/>
+    </bean>
+
+
+
 
 </beans>

@@ -28,6 +28,23 @@ public class Main {
         Circle circle = (Circle) beans.getBean("circle");
         circle.draw();
 
+        System.out.println("Circle using Inner Beans");
+        Circle circleInnerBean = (Circle) beans.getBean("circleInnerBean");
+        circleInnerBean.draw();
+
         ((ClassPathXmlApplicationContext) beans).registerShutdownHook();
+
+
+
+        // Starting a new configuration file
+        System.out.println("\n\t New Configuration file :]");
+
+        // Using lists - check springExtended.xml in resources
+        ApplicationContext beansTwo = new ClassPathXmlApplicationContext("springExtended.xml");
+        CircleWithCollections circleTwo = (CircleWithCollections) beansTwo.getBean("circle");
+        circleTwo.draw();
+
+        TriangleBeanAutowiring triangleAutowire = (TriangleBeanAutowiring) beansTwo.getBean("triangleAutoWiring");
+        triangleAutowire.draw();
     }
 }

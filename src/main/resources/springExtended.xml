@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <!-- Initializing Collections
+        List/Set/Map -->
+    <bean id="circle" class="helloSpring.CircleWithCollections">
+        <property name="position">
+            <list>
+                <ref bean="positionA"/>
+                <ref bean="positionB"/>
+                <ref bean="positionC"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="positionA" class="helloSpring.Position">
+        <property name="x" value="2" />
+        <property name="y" value="4" />
+    </bean>
+    <bean id="positionB" class="helloSpring.Position">
+        <property name="x" value="4" />
+        <property name="y" value="8" />
+    </bean>
+
+    <bean id="positionC" class="helloSpring.Position">
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+
+
+
+
+
+    <!-- Bean Autowiring - helps us in reducing some of the configuration we have to do
+        At the end of the bean declaration we added autowire="byName" -->
+    <bean id="triangleAutoWiring" class="helloSpring.TriangleBeanAutowiring" autowire="byName">
+    </bean>
+
+    <!-- The bean names match the name of the members of class TriangleBeanAutowiring
+    so we can tell Spring to match them -->
+    <bean id="positionX" class="helloSpring.Position">
+        <property name="x" value="2" />
+        <property name="y" value="4" />
+    </bean>
+    <bean id="positionY" class="helloSpring.Position">
+        <property name="x" value="4" />
+        <property name="y" value="8" />
+    </bean>
+
+    <bean id="positionZ" class="helloSpring.Position">
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+    <!-- You can also autowire byType - this works if we have only one member variable and only bean of one type
+        autowire constructor - it does a constructor injection - condition is you need to have only one bean per type
+        In real world big application is better to use explicit wiring and not use autowire so you can easily see
+        and understand how everything ties up -->
+
+</beans>
